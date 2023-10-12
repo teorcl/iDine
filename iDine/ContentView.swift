@@ -2,20 +2,28 @@
 //  ContentView.swift
 //  iDine
 //
-//  Created by ADMIN on 11/10/23.
+//  Created by Teodoro Calle Lara on 11/10/23.
 //
 
 import SwiftUI
 
 struct ContentView: View {
+    let menu = Bundle.main.decode([MenuSection].self, from: "menu.json")
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(menu) { section in
+                    Text(section.name)
+                        .bold()
+                        .font(.largeTitle)
+                    
+                    ForEach(section.items) { item in
+                        Text(item.name)
+                    }
+                }
+            }
+            .navigationTitle("Menu")
         }
-        .padding()
     }
 }
 
